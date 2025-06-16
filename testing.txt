@@ -1,2 +1,16 @@
 POST /api/auth/register - {"name": "Test User","email": "test@example.com","password": "Test@1234","role": "user"}
+                          {"name": "Admin","email": "admin@example.com","password": "admin@1234","role": "admin"}
 POST /api/auth/login - {"email": "test@example.com","password": "Test@1234"}
+                       {"email": "admin@example.com","password": "admin@1234"}
+
+POST /api/products - {
+                        "name": "Wireless Bluetooth Headphones",
+                        "description": "High-quality wireless headphones with noise cancellation and long battery life.",
+                        "price": 2499,
+                        "brand": "SoundX",
+                        "category": "Electronics",
+                        "stock_count": 50,
+                        "images": "https://example.com/images/headphones.jpg"
+                    }
+                    THIS ROUTE IS ADMIN ONLY 
+                    ADD ADMIN AUTH TOKEN FOR AUTHORISATION
