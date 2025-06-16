@@ -14,3 +14,7 @@ POST /api/products - {
                     }
                     THIS ROUTE IS ADMIN ONLY 
                     ADD ADMIN AUTH TOKEN FOR AUTHORISATION
+
+GET /api/products
+GET /api/products/:id
+DELETE /api/products/:id

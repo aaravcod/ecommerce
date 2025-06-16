@@ -31,8 +31,99 @@ export const createProduct = async (req, res) => {
 };
 
 export const getProducts= async(req,res)=>{
-    
+    try{
+      const products=await Product.find();
+      return res.status(200).json({
+        message:"Fetched Products",
+        success:true,
+        count: await Product.countDocuments(),
+        product: products
+      });
+    }
+    catch(error){
+      if(error){
+        console.log(error);
+        return res.status(500).json({message:'Failed to fetch'});
+      }
+    }
 }
-export const getProductById= async(req,res)=>{}
-export const updateProduct= async(req,res)=>{}
-export const deleteProduct= async(req,res)=>{}
+export const getProductById= async(req,res)=>{
+  try{
+    const {id}=req.params;
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ message: 'Invalid product ID format' });
+    }
+    const productbyid=await Product.findById(id);
+    if(!productbyid){return res.status(404).json({message:"Product Not found"})};
+    return res.status(200).json({
+      success:true,
+      message:"Product Found by ID",
+      productbyid
+    });
+  }
+
+  catch(error){
+    if(error){
+      res.status(500).json({message:"No product with this id"})
+    }
+  }
+}
+export const updateProduct= async(req,res)=>{
+  try{
+    const {id}=req.params;
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ message: 'Invalid product ID format' });
+    }
+    const product=await Product.findById(id);
+    if(!product){return res.status(404).json({message:'Product Does not Exsist'});}
+    const updatableFields = [
+      'name',
+      'description',
+      'price',
+      'brand',
+      'category',
+      'stock_count',
+      'images',
+    ];
+
+    updatableFields.forEach((field) => {
+      if (req.body[field] !== undefined) {
+        product[field] = req.body[field];
+      }
+    });
+
+    const updatedProduct = await product.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Product updated successfully',
+      product: updatedProduct,
+    });
+  }
+  catch(error){
+    if(error){
+      res.status(500).json({message:"Error updating Data"});
+    }
+  }
+}
+export const deleteProduct= async(req,res)=>{
+  try{
+    const {id}=req.params;
+    if (!id.match(/^[0-9a-fA-F]{24}$/)) {
+      return res.status(400).json({ message: 'Invalid product ID format' });
+    }
+    const deletedProduct = await Product.findByIdAndDelete(id);
+    if(!deletedProduct){return res.status(404).json({message:'Product Does not Exsist'});}
+    
+
+    return res.status(200).json({
+      success: true,
+      message: 'Product deleted successfully',
+    });
+  }
+  catch(error){
+    if(error){
+      res.status(500).json({message:"Error updating Data"});
+    }
+  }
+}
