@@ -14,7 +14,10 @@ POST /api/products - {
                     }
                     THIS ROUTE IS ADMIN ONLY 
                     ADD ADMIN AUTH TOKEN FOR AUTHORISATION
-
-GET /api/products
-GET /api/products/:id
 DELETE /api/products/:id
+PUT /api/products/:id   ANY NUMBER OF FEILD CAN BE UPDATED
+GET /api/products/:id   THIS ROUTE IS PUBLIC
+GET /api/products       THIS ROUTE IS PUBLIC
+
+POST /api/cart/add -      {"productId": "6852df4ef11911148dcc1ce5","quantity": 2}
+GET /api/cart/

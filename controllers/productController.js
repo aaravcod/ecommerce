@@ -2,6 +2,23 @@ import Product from '../models/products.js';
 
 export const createProduct = async (req, res) => {
   try {
+    const userId = req.user._id;
+
+    if (Array.isArray(req.body)) {
+      const products = req.body.map(product => ({
+        ...product,
+        createdBy: userId
+      }));
+
+      const createdProducts = await Product.insertMany(products);
+
+      return res.status(201).json({
+        message: 'Bulk products created successfully',
+        count: createdProducts.length,
+        products: createdProducts
+      });
+    }
+
     const { name, description, price, brand, category, stock_count, images } = req.body;
 
     const existingProduct = await Product.findOne({ name });
@@ -17,7 +34,7 @@ export const createProduct = async (req, res) => {
       category,
       stock_count,
       images,
-      createdBy: req.user._id
+      createdBy: userId
     });
 
     return res.status(201).json({
@@ -26,9 +43,11 @@ export const createProduct = async (req, res) => {
     });
 
   } catch (error) {
+    console.error('Create product error:', error.message);
     return res.status(500).json({ message: 'Product creation failed', error: error.message });
   }
 };
+
 
 export const getProducts= async(req,res)=>{
     try{
