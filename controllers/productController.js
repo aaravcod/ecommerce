@@ -43,8 +43,7 @@ export const createProduct = async (req, res) => {
     });
 
   } catch (error) {
-    console.error('Create product error:', error.message);
-    return res.status(500).json({ message: 'Product creation failed', error: error.message });
+      if(error){return res.status(500).json({ message: 'Product creation failed', error: error.message })};
   }
 };
 
