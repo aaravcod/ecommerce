@@ -123,3 +123,68 @@ export const updateCartItem = async (req, res) => {
     if(error){return res.status(500).json({ message: 'Failed to update cart', error: error.message });}
   }
 };
+
+
+export const deleteCartItem = async (req, res) => {
+  try {
+    const userId = req.user._id;
+    const productId = req.params.id;
+    if (!mongoose.Types.ObjectId.isValid(productId)) {
+      return res.status(400).json({ message: 'Invalid product ID format' });
+    }
+    const cart = await Cart.findOne({ user: userId });
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+    const itemIndex = cart.items.findIndex(item => item.product.toString() === productId);
+    if (itemIndex === -1) {
+      return res.status(404).json({ message: 'Product not found in cart' });
+    }
+    cart.items.splice(itemIndex, 1);
+    cart.totalprice = 0;
+    for (const item of cart.items) {
+      const prod = await Product.findById(item.product);
+      if (prod) {
+        cart.totalprice += prod.price * item.quantity;
+      }
+    }
+    cart.updatedAt = new Date();
+    await cart.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Product removed from cart',
+      cart
+    });
+
+  } catch (error) {
+    console.error('Delete cart item error:', error.message);
+    return res.status(500).json({ message: 'Server error', error: error.message });
+  }
+};
+
+export const clearCart = async (req, res) => {
+  try {
+    const userId = req.user._id;
+
+    const cart = await Cart.findOne({ user: userId });
+    if (!cart) {
+      return res.status(404).json({ message: 'Cart not found' });
+    }
+    cart.items = [];
+    cart.totalprice = 0;
+    cart.updatedAt = new Date();
+
+    await cart.save();
+
+    return res.status(200).json({
+      success: true,
+      message: 'Cart cleared successfully',
+      cart
+    });
+
+  } catch (error) {
+    console.error('Clear cart error:', error.message);
+    return res.status(500).json({ message: 'Error clearing cart', error: error.message });
+  }
+};
