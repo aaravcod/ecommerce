@@ -68,6 +68,7 @@ nodemon server.js
 | POST   | `/login`    | Login and receive JWT token         |
 | GET    | `/profile`  | Get current user info *(protected)* |
 🛍️ Product Routes (/api/products)
+
 | Method | Endpoint | Description                     |
 | ------ | -------- | ------------------------------- |
 | GET    | `/`      | Get all products                |
@@ -77,6 +78,7 @@ nodemon server.js
 | DELETE | `/:id`   | Delete a product *(admin only)* |
 
 🛒 Cart Routes (/api/cart)
+
 | Method | Endpoint          | Description                  |
 | ------ | ----------------- | ---------------------------- |
 | GET    | `/`               | Get current user's cart      |
@@ -86,12 +88,14 @@ nodemon server.js
 | DELETE | `/clear`          | Clear entire cart            |
 
 📦 Order Routes (/api/orders)
+
 | Method | Endpoint | Description                           |
 | ------ | -------- | ------------------------------------- |
 | POST   | `/`      | Create a new order from cart *(user)* |
 | GET    | `/:id`   | Get specific order by ID *(user)*     |
 
 🔄 Payment Simulation Using Redis Pub/Sub
+
 | Event                | Channel                | Description                                  |
 | -------------------- | ---------------------- | -------------------------------------------- |
 | `order_created`      | Published by API       | After order is placed                        |
@@ -99,6 +103,7 @@ nodemon server.js
 | `email_simulated`    | Console log only       | Logs fake email confirmation after payment   |
 
 📑 Swagger Documentation
+
 | Method | Endpoint    | Description                   |
 | ------ | ----------- | ----------------------------- |
 | GET    | `/api-docs` | Swagger UI for all API routes |
