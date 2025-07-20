@@ -59,15 +59,16 @@ nodemon server.js
 
 ```
 
-📬 API Endpoints
-🔐 Auth Routes (/api/auth)
+### 📬 API Endpoints
+## 🔐 Auth Routes (/api/auth)
 
 | Method | Endpoint    | Description                         |
 | ------ | ----------- | ----------------------------------- |
 | POST   | `/register` | Register a new user                 |
 | POST   | `/login`    | Login and receive JWT token         |
 | GET    | `/profile`  | Get current user info *(protected)* |
-🛍️ Product Routes (/api/products)
+
+## 🛍️ Product Routes (/api/products)
 
 | Method | Endpoint | Description                     |
 | ------ | -------- | ------------------------------- |
@@ -77,7 +78,7 @@ nodemon server.js
 | PUT    | `/:id`   | Update a product *(admin only)* |
 | DELETE | `/:id`   | Delete a product *(admin only)* |
 
-🛒 Cart Routes (/api/cart)
+## 🛒 Cart Routes (/api/cart)
 
 | Method | Endpoint          | Description                  |
 | ------ | ----------------- | ---------------------------- |
@@ -87,14 +88,14 @@ nodemon server.js
 | DELETE | `/remove/:itemId` | Remove item from cart        |
 | DELETE | `/clear`          | Clear entire cart            |
 
-📦 Order Routes (/api/orders)
+## 📦 Order Routes (/api/orders)
 
 | Method | Endpoint | Description                           |
 | ------ | -------- | ------------------------------------- |
 | POST   | `/`      | Create a new order from cart *(user)* |
 | GET    | `/:id`   | Get specific order by ID *(user)*     |
 
-🔄 Payment Simulation Using Redis Pub/Sub
+## 🔄 Payment Simulation Using Redis Pub/Sub
 
 | Event                | Channel                | Description                                  |
 | -------------------- | ---------------------- | -------------------------------------------- |
@@ -102,11 +103,11 @@ nodemon server.js
 | `payment_successful` | Published by simulator | After 2s fake delay via `simulatePayment.js` |
 | `email_simulated`    | Console log only       | Logs fake email confirmation after payment   |
 
-📑 Swagger Documentation
+## 📑 Swagger Documentation
 
 | Method | Endpoint    | Description                   |
 | ------ | ----------- | ----------------------------- |
 | GET    | `/api-docs` | Swagger UI for all API routes |
 
-📄 License
+## 📄 License
 This project is licensed under the MIT License – see the LICENSE file for details.
