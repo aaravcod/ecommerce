@@ -11,7 +11,7 @@ POST /api/products - {
                         "category": "Electronics",
                         "stock_count": 50,
                         "images": "https://example.com/images/headphones.jpg"
-                    }
+                    }   
                     THIS ROUTE IS ADMIN ONLY 
                     ADD ADMIN AUTH TOKEN FOR AUTHORISATION
 DELETE /api/products/:id
@@ -25,3 +25,12 @@ PUT /api/cart/update -    {"productId": "6852df4ef11911148dcc1ce5","quantity": 3
 DELETE /api/cart/delete/:id 
 DELETE /api/cart/clear
 
+POST /api/order -{
+                    "shippingAddress": {
+                    "address": "123 Main Street",
+                    "city": "Mumbai",
+                    "postalCode": "400001",
+                    "country": "India"
+                },
+                    "paymentMethod": "Simulated"
+                }

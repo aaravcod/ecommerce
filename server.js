@@ -6,6 +6,8 @@ import authRoutes from './routes/authRoutes.js';
 import productRoutes from './routes/productRoutes.js'
 import cartRoutes from './routes/cartRoutes.js'
 import orderRoutes from './routes/orderRoutes.js'
+import { initEmailLogger } from './subscriber/emailLogger.js';
+import  simulatePayment  from './services/paymentSim.js'
 import { swaggerUi, swaggerSpec } from './swagger.js';
 connectDB();
 dotenv.config();
@@ -16,5 +18,10 @@ app.use("/api/auth",authRoutes);
 app.use('/api/products', productRoutes);
 app.use('/api/cart',cartRoutes);
 app.use('/api/order',orderRoutes);
+
+simulatePayment();
+
+initEmailLogger();
+
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.listen(process.env.PORT,()=>{console.log(`Connection on port ${process.env.PORT}`);});
